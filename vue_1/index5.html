@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>TodoList</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <div>
+                <input v-model="inputValue"/>
+                <button @click="handleSubmit">提交</button>
+            </div>
+            <ul>
+                <todo-item
+                v-for="(item,index) of list" 
+                :key="index"
+                :content="item"  
+                :index="index"
+                @delete="handleDelete"
+                >
+                <!--:content表示组件要显示什么内容，：index指小组件对应的下标-->
+                <!--@delete监听子组件的delete事件,监听到以后执行handleDelete方法-->
+                </todo-item>
+            </ul>
+        </div>
+        <script>
+
+            /*创建全局组件,不需要声明可以直接调用
+            Vue['component']('todo-item',{
+                props:['content'], //接受从外部传进来的叫content属性
+                template:'<li>item</li>' //模板
+            })*/
+
+            //局部组件,需要在vue实例里声明components
+            var TodoItem = {
+                props:['content','index'], //接受从外部传进来的叫content和index属性
+                template:'<li @click="handleClick">{{content}}</li>',
+                methods: {
+                    handleClick:function() {
+                        this.$emit('delete',this.index)  
+                        //和父组件通信，触发事件为自定义的delete,事件中携带了index的值
+                    }
+                }
+            }
+            new Vue ({
+                el:"#root",
+                components: {
+                    'todo-item':TodoItem //声明局部组件
+                },
+                data: {
+                    inputValue:'',
+                    list:[]
+                },
+                methods: {
+                    handleSubmit:function() {
+                        this.list.push(this.inputValue)
+                        this.inputValue=''
+                    },
+                    handleDelete:function(index){
+                        this.list.splice(index,1);
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

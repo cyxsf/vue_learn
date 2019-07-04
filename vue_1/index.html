@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Vue入门</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <!--<h1>Hello {{msg}}</h1>-->
+            <h1>{{number}}</h1>
+            <div v-text="content"></div>
+            <div v-html="content"></div>
+            <!--<h2 v-on:click="handleclick">{{msg}}</h2>-->
+            <h2 @click="handleclick">{{msg}}</h2>
+        </div>
+        <script>
+            new Vue({
+                el:"#root" ,//让vue接管页面上的内容
+                //template: '<h1>hello{{msg}}</h1>',
+                data: {
+                    msg:"World",
+                    number:123,
+                    content:"<h1>hello</h1>"
+                },
+                methods: {
+                    handleclick: function () {
+                        this.msg="修改后的字"
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

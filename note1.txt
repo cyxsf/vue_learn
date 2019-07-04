@@ -1,0 +1,33 @@
+vue_1和vue_2的笔记内容
+1、vue用script引入时最好放在head里面，不要放在body里面，防止出现抖屏。
+2、挂载点指的是Vue实例下中el属性对应的""中的id所对应的dom节点(div)
+vue只会处理挂载点下面的内容
+模板：挂载点内部的内容，模板也可以放在vue实例的template里面。
+实例：只需指定挂载点，然后写模板，vue会自动结合模板和数据形成内容，放在挂载点中。
+3、挂载点输出文本的三种方式：
+插值表达式：{{msg}},   
+指令：v-text="msg",  转义输出     v-html="msg" 不转义输出
+4、模板绑定事件： v-on:click="handleClick"  @click="handleClick"
+ 绑定click事件   在methods中定义方法
+5、v-bind:当前title属性和实例里的title数据项进行绑定 即v-bind:title="title"
+模板指令等号后的内容是js的表达式
+6、单向绑定：数据决定页面的显示，但是页面无法决定数据内容     双向绑定 v-model
+7、计算属性（computed:）：一个属性通过其他属性计算而来（只有它依赖的数据发生变化的时候，它才会重新计算；如果依赖的属性没有发生变化，它会利用以前计算结果的缓存来在页面上做显示）
+侦听器watch：监听某一个数据的变化，一旦这个数据发生了变化，就在该侦听器内进行业务逻辑
+注：watch不仅可以监听vue实例的data内属性，而且可以监听计算computed下计算属性的变化
+8、v-if和v-show：这两个属性用来控制dom显示隐藏，当值为true则显示，为false则隐藏。if和show的一大区别在于if是通过销毁dom的方式实现隐藏，而show是通过display=none 的方式实现的，需频繁切换时建议使用v-show；
+v-for属性：主要用于遍历数组数据，并自动生成dom列表。如v-for='(item, index) of list'  :key='index'，其中:key更好的渲染列表，必须是唯一的；   item是遍历出的子项；
+9、组件：页面上的某一部分   vue的组件是vue的实例，任何的vue项目都由实例组成
+每个实例的组成部分：props、template、data、methods...
+每一个组件都有一个template模板，如果没有写template，默认为挂载点下面的所有DOM
+vue中父组件向子组件传值是通过属性进行传递
+10、vue项目目录结构说明：
+build:webpack配置文件   config:项目开发环境/线上环境的配置文件  
+node_modules:项目的依赖环境   src:源代码目录   static:静态资源 
+Main.js:项目入口文件
+vue-cli提供了一种新的vue的编码语法：单文件组件（一个.vue文件中包含了一个组件里必须的所有内容）
+脚手架：1、可以使用es6语法  2、一个组件是一个.vue的文件所定义的，实现了组件的封装。
+11、单文件组件的template模板中，只能有一个外层<div>，其它应该都在这一层<div>里
+单文件组件的script中，data不是{}数据形式，是function()函数形式，return返回值是{}数据
+12、<style scoped>加了一个作用域，只在本组件有用  <style>全局有用
+推荐定义scoped 实现组件间的解耦

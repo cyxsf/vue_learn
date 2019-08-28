@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>组件参数校验与非Props特性、绑定原生事件</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <!--<child :content="hell"></child>-->
+            <child @click.native="handleClick"></child>
+        </div>
+        <script>
+            Vue.component('child',{
+                template: '<div>Child</div>'
+                /*template:'<div @click="handleChildClick">Child</div>',
+                methods:{
+                    handleChildClick: function(){
+                        this.$emit('click')
+                    }
+                }*/
+            })
+            /*Vue.component('child',{
+                props:{
+                    content: {
+                        type: String,
+                        //required: false,
+                        //default: 'default value'  不传入content时默认值
+                        validator: function(value) {
+                            return (value.length >5)
+                        }  //自定义校验器
+                    }
+                },
+                template:'<div>{{content}}</div>'
+            })*/
+            var vm = new Vue({
+                el:'#root',
+                methods: {
+                    handleClick:function(){
+                        alert('click')
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

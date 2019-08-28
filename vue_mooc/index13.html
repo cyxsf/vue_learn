@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Vue中CSS动画原理</title>
+        <script src="vue.js"></script>
+        <link rel="stylesheet" type="text/css" href="animate.css">
+        <style>
+
+            /*@keyframes bounce-in {
+                0% {
+                    transform: scale(0);
+                }
+                50% {
+                    transform: scale(1.5);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+            .active{
+                transform-origin: left center;
+                animation: bounce-in 1s; 
+            }
+            .leave{
+                transform-origin: left center;
+                animation: bounce-in 1s reverse;
+            }
+            */
+            .fade-enter,
+            .fade-leave-to{
+                opacity: 0;
+            }
+            .fade-enter-active,
+            .fade-leave-active{
+                transition: opacity 3s;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <transition  
+            :duration = "{enter: 5000 leave:10000}"
+            type = "transition"
+            name = "fade"
+            appear
+            enter-active-class = "animated swing fade-ernter-class"
+            leave-active-class = "animated shake fade-leave-class"
+            appear-active-class = "animated swing">
+                <div v-if="show">
+                    hello world
+                </div>
+            </transition>
+
+            <button @click="handleClick">切换</button>
+        </div>
+        <script>
+            var vm = new Vue({
+                el:'#root',
+                data:{
+                    show:true
+                },
+                methods:{
+                    handleClick: function(){
+                        this.show = !this.show;
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
+
